@@ -1,0 +1,114 @@
+
+
+
+{# Show book details in a modal #}
+  <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit book</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_book">
+          <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book Name</label>
+                <input type="text" id="b_name" class="form-control" >
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book Genre</label>
+                <input type="text" id="b_genre" class="form-control" >
+              </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book author</label>
+                <input type="text" id="b_author" class="form-control" >
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book edition</label>
+                <input type="text" id="b_edition" class="form-control" >
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book description</label>
+                <input type="text" id="b_description" class="form-control" >
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Book rating</label>
+                <input type="text" id="b_rating" class="form-control" >
+              </div>
+              
+              
+            <button type="button" data-bs-dismiss="modal" class="btn btn-primary" onclick="updateBookDetails()">Update</button>
+            <input type="hidden" id="hiddenBookId">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/jquery-3.6.0.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" ></script>
+<script src="../js/validation.js"></script>
+<link rel="stylesheet" href="../style/style.css">
+
+<div class="container my-3">
+    <table id="book_table" class="table table-striped container">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Owner Name</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Actions</th>
+                    
+                </tr>
+            </thead>
+            <tbody> 
+            {% set num = 1 %}
+                {% for data in b_array %}
+                <tr id="tr{{ num }}">
+                    <th scope="row">{{ num }}</th>
+                    <td><a class="nav-link" href="profile/book_profile.php?id={{ data.id }}">{{ data.book_name }}</a></td>
+                    <td>{{ data.ownerName }}</td>
+                    <td>{{ data.genre }}</td>
+                    <td>{{ data.author }}</td>
+                    <td>{{ data.edition }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>{{ data.status }}</td>
+                    <td>{{ data.rating }}</td>
+                    <td>{{ data.quantity }}</td>
+                    <td><img src="{{ data.image }} alt="Image of book"></td>
+                    <td>
+                        <a class="btn btn-primary mx-1 btn-sm" href="javascript:void(0)" onclick="deleteBook({{ data.id }})">Delete</a>
+
+                        <a href="javascript:void(0)" onclick="getBookDetails('{{ data.id }}')" class="btn btn-primary mx-1 btn-sm" >Edit</a>
+
+                        {% if data.status == "blocked" %}
+                            <a class="btn btn-primary mx-1 btn-sm" href="javascript:void(0)" onclick="unBlockBook({{ data.id }})">unBlock</a>
+                        {% else %}
+                            <a class="btn btn-primary mx-1 btn-sm" href="javascript:void(0)" onclick="blockBook({{ data.id }})">Block</a>
+
+                        {% endif %}
+
+                    </td>
+                    
+
+                </tr>
+                {% set num = num+1 %}
+                {% endfor %}
+
+            </tbody>
+    </table>
+</div>
+
+
