@@ -13,27 +13,27 @@
         <form id="edit_book">
           <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book Name</label>
-                <input type="text" id="b_name" class="form-control" >
+                <input type="text" id="b_name" name="book_name" class="form-control" >
               </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book Genre</label>
-                <input type="text" id="b_genre" class="form-control" >
+                <input type="text" id="b_genre" name="book_genre" class="form-control" >
               </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book author</label>
-                <input type="text" id="b_author" class="form-control" >
+                <input type="text" id="b_author" name="book_author"class="form-control" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book edition</label>
-                <input type="text" id="b_edition" class="form-control" >
+                <input type="text" id="b_edition" name="book_edition" class="form-control" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book description</label>
-                <input type="text" id="b_description" class="form-control" >
+                <input type="text" id="b_description" name="book_description" class="form-control" >
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Book rating</label>
-                <input type="text" id="b_rating" class="form-control" >
+                <input type="text" id="b_rating" name="book_rating" class="form-control" >
               </div>
               
               
@@ -48,11 +48,7 @@
   </div>
 </div>
 
-<script src="../js/jquery-3.6.0.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" ></script>
-<script src="../js/validation.js"></script>
-<link rel="stylesheet" href="../style/style.css">
 
 <div class="container my-3">
     <table id="book_table" class="table table-striped container">
@@ -111,4 +107,8 @@
     </table>
 </div>
 
+
+<script src="../js/jqueryValidator.js"></script>
+<script src="../js/validation.js"></script>
+<link rel="stylesheet" href="../style/style.css">
 

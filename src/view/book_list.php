@@ -25,6 +25,7 @@ $bookListHtml = $book->get_books();
 
     <script src="../js/jquery-3.6.0.js"></script>
     <script src="../js/bookAjax.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css"/>
     <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
 

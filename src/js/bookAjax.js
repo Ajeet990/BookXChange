@@ -1,6 +1,6 @@
-$(document).ready(function() {
-    $('#book_table').DataTable();
-});
+// $(document).ready(function() {
+//     $('#book_table').DataTable();
+// });
 
 
 function blockBook(id)

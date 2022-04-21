@@ -33,6 +33,7 @@ $welcome = $setting->getWelcome();
 
 
 <script src="src/js/jquery-3.6.0.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" ></script>
+
+<script src="src/js/jqueryValidator.js"></script>
 <script src="src/js/validation.js"></script>
 <link rel="stylesheet" href="src/style/style.css">

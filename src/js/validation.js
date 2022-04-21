@@ -78,81 +78,83 @@ jQuery('#edit_user').validate({
 
 
 jQuery('#edit_book').validate({
-    
+
     rules:{
-        e_name:{
+        book_name:{
             required:true,
             minlength:4,
         },
-        e_genre:{
+        book_genre:{
             required:true,
-            
             minlength:5,
-            
+
         },
         
-       e_author:{
+       book_author:{
            required:true,
            minlength:5,
 
        },
-        e_edition:{
+        book_edition:{
             required:true,
             number:true,
 
         },
-        e_feedback:{
+        book_description:{
             required:true,
             
         },
-        e_rating:{
+        book_rating:{
             required:true,
+            float:true
         }
 
     },messages:{
-        e_name:{
+        book_name:{
             required:"** Please enter your book name **",
             minlength:"** Name must be at least 4 charecters **"
         },
-        e_genre:{
+        book_genre:{
             required:"** Please enter your genre type of book**",
             minlength:"** genre must be 5 digits**",
             
         },
         
-        u_author:{
+        book_author:{
             required: "** Please enter author name **",
             minlength:"** author name must of 5 characters **",
             
         },
-        e_edition:{
+        book_edition:{
             required:"** Please enter edtion of the book **",
+            number :"** only a valid number **"
             
 
         },
-        e_feedback:{
-            required:"** feedback is mandatory **"
+        book_description:{
+            required:"** Description is mandatory **"
         },
 
-        e_rating:{
-            required:"** Rating must be given for this book **"
+        book_rating:{
+            required:"** Rating must be given for this book **",
+            float:"** Must be a number or float value **"
         }
 
     }
-})
+});
 
-$.validator.addMethod(
-    "filesize",(value, element, param) =>{
-        const limit = parseInt(param) * 1024 * 1024;
-        const size = element.files[0].size;
-        if (size > limit){
-            return false;
-        } 
-        return true;
-    },
-    "File size should be less than {0}mb"
+// $.validator.addMethod(
+//     "filesize",(value, element, param) =>{
+//         const limit = parseInt(param) * 1024 * 1024;
+//         const size = element.files[0].size;
+//         if (size > limit){
+//             return false;
+//         } 
+//         return true;
+//     },
+//     "File size should be less than {0}mb"
 
-    );
+//     );
 jQuery('#setting').validate({
 
     rules:{
@@ -170,9 +172,9 @@ jQuery('#setting').validate({
         },
         logo:{
 
-            filesize:2,
+            // filesize:2,
             // extension:"jpg|png|jpeg",
-            accept:"image/*"
+            // accept:"image/*"
             // extension:"png|jpg|jpeg"
         }
 
@@ -191,8 +193,8 @@ jQuery('#setting').validate({
         },
         logo:{
             // extension:"** Only Photos are allowed **",
-            filesize:"Image should be less than 2 mb",
-            accept:"Only images are allowed"
+            // filesize:"Image should be less than 2 mb",
+            // accept:"Only images are allowed"
         }
 }
 })
