@@ -106,7 +106,7 @@ jQuery('#edit_book').validate({
         },
         book_rating:{
             required:true,
-            float:true
+            number:true
         }
 
     },messages:{
@@ -137,7 +137,7 @@ jQuery('#edit_book').validate({
 
         book_rating:{
             required:"** Rating must be given for this book **",
-            float:"** Must be a number or float value **"
+            number:"** Must be a number or float value **"
         }
 
     }

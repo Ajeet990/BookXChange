@@ -1,4 +1,20 @@
 <?php
+/**
+ * Bookcontroller that controls all the book functionality
+ *
+ * PHP version 8.1.3
+ *
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    SVN: $Id$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 namespace Book\Bookxchange\Controller;
 
 
@@ -6,92 +22,145 @@ require_once __DIR__ .'/../../vendor/autoload.php';
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-
+/**
+ * SettingController, a controller for the setting, tha handles all the 
+ * setting related functions
+ * 
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    SVN: $Id$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 class SettingController
 {
 
 
-    private $loader;
-    private $twig;
-    private $setting_m;
-    //constructor for the setting COntroller. $setting_m is the object for the setting model.
-    public function __construct($setting_m){
-
+    private $_loader;
+    private $_twig;
+    private $_setting_m;
+    /**
+     * Constructor for the setting controller.
+     * 
+     * @param $setting_m is the object for the setting model,
+     *                   that call all the functions in setting model page.
+     */
+    public function __construct($setting_m)
+    {
         $this->loader = new FilesystemLoader(__DIR__ . '/../view/templates');
         $this->twig = new Environment($this->loader);
         $this->setting_m = $setting_m;
     }
 
-    //functionto display all the settings in setting page.
+    /**
+     * Function to get all the setting, and get them into the twig file.
+     * 
+     * @return returns all the settings in a 
+     * file and send them to setting.html.twig file.
+     */
     public function allSettings()
     {
 
-        $allSetting = $this->setting_m->allSettings_model();
+        $allSetting = $this->setting_m->allSettingsModel();
         // echo "<pre>";
         // print_r($allSetting);
-        return $this->twig->render('setting.html.twig',["all_setting" => $allSetting]);
+        return $this->twig->render(
+            'setting.html.twig', ["all_setting" => $allSetting]
+        );
         
         
     }
-    //function to apply the changes that are done in the setting page. $title holds the value of title page, $mail holds value for the mail from(Mail address) and $welcome holds the welcome message at the begining.
+    /**
+     * Fucntion to apply the changes that done in the setting page
+     * 
+     * @param $title   is the string value, that contains the title of the page.
+     * @param $mail    is the string value, that contains the mail 
+     *                 address of the page.
+     * @param $welcome is the welcome message from the setting page.
+     * 
+     * @return Nothing to return.
+     */
     public function applyChange(string $title,string $mail,string $welcome)
     {
 
             
         $setTitle = $this->setting_m->setTitleModel($title);
-         if($setTitle){
-                // $_SESSION['success'] = "Successfully applied your Site name";
+        if ($setTitle) {
                 header('location:setting.php');
-            }
+        }
 
         $setMail = $this->setting_m->setMailModel($mail);
-         if($setMail){
-                // $_SESSION['success'] = "Successfully applied your mail";
-                header('location:setting.php');
-            }
-
-        $setWlc = $this->setting_m->setWlcModel($welcome);
-         if($setWlc){
-                // $_SESSION['success'] = "Successfully applied your welcome message";
-                header('location:setting.php');
-            }
-
-
-    }
-    //function to upload logo in the navbar.
-    public function updateLogo($logo)
-    {
-        // global $setting_m;
-        $logo = $this->setting_m->updateLogo_model($logo);
-        if($logo){
-            $_SESSION['success'] = "Successfully applied your Logo";
-            // return $this->twig->render('setting.html.twig',["all_setting" => $applyResult]);
+        if ($setMail) {
             header('location:setting.php');
         }
 
+        $setWlc = $this->setting_m->setWlcModel($welcome);
+        if ($setWlc) {
+            header('location:setting.php');
+        }
 
     }
 
-    //function to show title at the top of the page.
+    /**
+     * Function to upload the image for the logo.
+     * 
+     * @param $logo is the image for the logo.
+     * 
+     * @return nothing to return
+     */
+    public function updateLogo($logo)
+    {
+        // global $setting_m;
+        $img_name = $logo['name'];
+        $img_path = $logo['tmp_name'];
+
+        $dest = "../img/".$img_name;
+        move_uploaded_file($img_path, $dest);
+        $logoRst = $this->setting_m->updateLogoModel($dest);
+        if ($logoRst) {
+            $_SESSION['success'] = "Successfully applied your Logo";
+            header('location:setting.php');
+        }
+    }
+
+    /**
+     * Function to get updated title to show in the title section of the page.
+     * 
+     * @return return the title of the page 
+     */
     public function getTitle()
     {
 
-        $title = $this->setting_m->getTitle_model();
+        $title = $this->setting_m->getTitleModel();
         return $title;
     }
 
 
-    //function to show the welcome message the the login Form.
+    /**
+     * Function to get the updated welcome message in the login section
+     * 
+     * @return returns the welcome message.
+     */
     public function getWelcome()
     {
 
-        $welcome = $this->setting_m->getWelcome_model();
+        $welcome = $this->setting_m->getWelcomeModel();
         return $welcome;
     }
-    //function to show the logo.
+
+    /**
+     * Function to get the logo from the database
+     * 
+     * @return the logo image from the database
+     */
     public function getLogo()
     {
-        $logo = $this->setting_m->getLogo_model();
+        $logo = $this->setting_m->getLogoModel();
         $logo_name = $logo['value'];
         $logo_name = substr($logo_name, 7);
         return $logo_name;

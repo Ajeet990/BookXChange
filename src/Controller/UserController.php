@@ -1,4 +1,20 @@
 <?php
+/**
+ * Usercontroller that controls all the User related functionality
+ *
+ * PHP version 8.1.3
+ *
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    SVN: $Id$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 namespace Book\Bookxchange\Controller;
 
 
@@ -7,26 +23,55 @@ require_once __DIR__ .'/../../vendor/autoload.php';
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+/**
+ * User controller that controls all the functions of the user
+ *
+ * PHP version 8.1.3
+ *
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 class UserController
 {
-    private $loader;
-    private $twig;
+    private $_loader;
+    private $_twig;
 
 
-    public function __construct($user_m){
-
+    /**
+     * Constructor for the User controller.
+     * 
+     * @param $user_m is the object for user model to connect with the database.
+     */
+    public function __construct($user_m)
+    {
         $this->loader = new FilesystemLoader(__DIR__ . '/../view/templates');
         $this->twig = new Environment($this->loader);
         $this->user_m = $user_m;
     }
 
-    public function get_users()
+    /**
+     * Function to get list of all users.
+     * 
+     * @return return the list of all the user to the twig file.
+     */
+    public function getUsers()
     {
-
-        $u_list = $this->user_m->get_users_model();
+        $u_list = $this->user_m->getUsersModel();
         return $this->twig->render('user_list.html.twig', ['u_array' => $u_list]);
     }
 
+    /**
+     * Function to get the user loggedOut
+     * 
+     * @return nothing to return.
+     */
     public function logout()
     {
         session_start();
@@ -34,49 +79,65 @@ class UserController
         header('location:../../index.php');
     }
 
+    /**
+     * Function to get the user log In
+     * 
+     * @param $uname is the string value that holds the username
+     * @param $upass is the string, that holds the password.
+     * 
+     * @return nothing to return. 
+     */
     public function login($uname, $upass)
     {
         // global $admin_m;
-        $login_rst = $this->user_m->login_model($uname, $upass);
-        if($login_rst){
-            $_SESSION['login'] = "success";
-            if($uname == "superadmin"){
-                $_SESSION['loggedIn'] = "superadmin";
-            } elseif($uname == "bookManager") {
-                $_SESSION['loggedIn'] = "bookManager";
-            } elseif($uname == "userManager"){
-                $_SESSION['loggedIn'] = "userManager";
+        $userNameResult = $this->user_m->checkUserModel($uname);
+        if ($userNameResult) {
+            $userPassResult = $this->user_m->getPassModel($uname);
+            if (password_verify($upass, $userPassResult['password'])) {
+                $_SESSION['login'] = "success";
+                if ($uname == "superadmin") {
+                    $_SESSION['loggedIn'] = "superadmin";
+                } elseif ($uname == "bookManager") {
+                    $_SESSION['loggedIn'] = "bookManager";
+                } elseif ($uname == "userManager") {
+                    $_SESSION['loggedIn'] = "userManager";
+                }
+                header('location:src/view/welcome.php');
+            } else {
+                $_SESSION['wrong'] = "false";
+                header('location:index.php');
+                exit;
             }
 
-            // header('location:index.php');
-            header('location:src/view/welcome.php');
-            exit;
-        } else {
-            
-            $_SESSION['admin'] = "false";
-
-            header('location:index.php');
-            exit;
-            
         }
     }
 
-    public function get_all_data()
-    {
-        // $all_data = $this->user_m->get_all_data_model();
-        // if ($all_data) {
-        //     return $this->twig->render('all_data.html.twig', ['all_data' => $all_data]);
 
-        // }
-        $userData = $this->user_m->getUserData();
-        $bookData = $this->user_m->getBookData();
-            return $this->twig->render('all_data.html.twig', ['userData' => $userData, 'bookData' => $bookData]);
+    /**
+     * Function to get all the details of book and users in summary.
+     * 
+     * @return all the data to the twig file.
+     */
+    public function getAllData()
+    {
+        $userData = $this->user_m->getUserDataModel();
+        $bookData = $this->user_m->getBookDataModel();
+        return $this->twig->render(
+            'all_data.html.twig', ['userData' => $userData, 'bookData' => $bookData]
+        );
 
     }
 
-    public function user_profile(int $id)
+    /**
+     * Function to get the user profile.
+     * 
+     * @param $id integer value for the user whose profile need to be viewed.
+     * 
+     * @return returns to data to user profile to the twig file. 
+     */
+    public function userProfile(int $id)
     {
-        //fetching user details.
+
         $userDetails = $this->user_m->getUserDetails($id);
         //fetching book details for that user.
         $userBookProfile = $this->user_m->userBookDetailsModel($id);
@@ -85,15 +146,30 @@ class UserController
         $timestamp = strtotime($original_date);
         // Creating new date format from that timestamp
         $joining_date = date("d-m-Y", $timestamp);
-        return $this->twig->render('user_profile.html.twig', ['userBookProfile' => $userBookProfile, 'userDetails' => $userDetails, 'joining_date' => $joining_date]);
+        return $this->twig->render(
+            'user_profile.html.twig', [
+                'userBookProfile' => $userBookProfile,
+                'userDetails' => $userDetails,
+                'joining_date' => $joining_date
+            ]
+        );
         
 
 
     }
 
-    public function deleteUser(int $id){
+    /**
+     * Function to delete the user
+     * 
+     * @param $id is the unique id of the user to delete the data of 
+     *            that particular user.
+     * 
+     * @return nothign to return.
+     */
+    public function deleteUser(int $id)
+    {
         $dltRst = $this->user_m->deleteUserModel($id);
-        if($dltRst){
+        if ($dltRst) {
             $_SESSION['success'] = "user Deleted successfully";
             header('location:user_list.php');
         } else {
@@ -101,9 +177,19 @@ class UserController
             header('location:user_list.php');
         }
     }
-    public function blockUser(int $id){
+
+    /**
+     * Function to block the user
+     * 
+     * @param $id is the integer value that holds the id of the
+     *            user that needs to be blocked.
+     * 
+     * @return nothing to return.
+     */
+    public function blockUser(int $id)
+    {
         $blkRst = $this->user_m->blockUserModel($id);
-        if($blkRst){
+        if ($blkRst) {
             $_SESSION['success'] = "user Blocked successfully";
             header('location:user_list.php');
         } else {
@@ -113,19 +199,45 @@ class UserController
 
     }
 
+    /**
+     * Function to show edit the user form.
+     * 
+     * @param $id is the id of the user whose data needs to be edited.
+     * 
+     * @return returns the data to the twig file, including data of the user.
+     */
     public function editUserForm(int $id)
     {
         $editUser = $this->user_m->editUserFormModel($id);
         // echo "<pre>";
         // print_r($editUser);
-        return $this->twig->render('edit_user_form.html.twig', ['editUser' => $editUser]);
+        return $this->twig->render(
+            'edit_user_form.html.twig', ['editUser' => $editUser]
+        );
 
     }
 
-    public function updateUser(int $id, $uName, $uMobile, $uAddress, $uEmail, $uRating)
-    {
-        $updateRst = $this->user_m->updateUserModel($id, $uName, $uMobile, $uAddress, $uEmail, $uRating);
-        if($updateRst){
+    /**
+     * Function to update the user details.
+     * 
+     * @param $id       is the id of the user whose data needs to be updated.
+     * @param $uName    string value holds the updated name of the user.
+     * @param $uMobile  string, holds the phone number of the user.
+     * @param $uAddress string, holds the address of the user.
+     * @param $uEmail   string, is the string that holds the email 
+     *                  Address of the user.
+     * @param $uRating  float, holds the rating for that user.
+     * 
+     * @return nothing to return.
+     */
+    public function updateUser(
+        int $id,string $uName,string $uMobile, string $uAddress,
+        string $uEmail,float $uRating
+    ) {
+        $updateRst = $this->user_m->updateUserModel(
+            $id, $uName, $uMobile, $uAddress, $uEmail, $uRating
+        );
+        if ($updateRst) {
             $_SESSION['success'] = "User updated successfully";
             header('location:user_list.php');
         } else {
@@ -135,17 +247,20 @@ class UserController
         }
     }
 
+    /**
+     * Function to unblock the user
+     * 
+     * @param $id is the integer value that holds the id of the
+     *            user which needs to be unblocked.
+     * 
+     * @return nothing to return.
+     */
     public function unBlockUser(int $id)
     {
         $ubBlkRst = $this->user_m->unBlockUserModel($id);
-        if($ubBlkRst){
+        if ($ubBlkRst) {
             $_SESSION['success'] = "successfully unblocked";
             header('location:user_list.php');
-
-
         }
-
     }
-
-
 }

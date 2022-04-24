@@ -18,21 +18,21 @@
     <form method="POST" action="setPermission.php">
         <tr>
             <td>User manager</td>
-            <td> <input type="checkbox" name="permission[]" value="user" {% if(permission[0][0].user_table) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="book" {% if(permission[0][0].book_table) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="rqst" {% if(permission[0][0].request) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="setting" {% if(permission[0][0].settings) == 1 %} checked {% endif %}></td>
-            <td> <button type="submit" name="set_permission_user" class="btn btn-primary" >Apply</button></td>
+            <td> <input type="checkbox" name="permission[]" value="user" {% if(uPermission.user_table) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="book" {% if(uPermission.book_table) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="rqst" {% if(uPermission.request) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="setting" {% if(uPermission.settings) == 1 %} checked {% endif %}></td>
+            <td> <button type="submit" name="setPermissionUser" class="btn btn-primary" >Apply</button></td>
         </tr>
     </form>
     <form method="POST" action="setPermission.php">
                 <tr>
             <td>Book manager</td>
-            <td> <input type="checkbox" name="permission[]" value="user" {% if(permission[1][0].user_table) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="book" {% if(permission[1][0].book_table) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="rqst" {% if(permission[1][0].request) == 1 %} checked {% endif %}></td>
-            <td> <input type="checkbox" name="permission[]" value="setting" {% if(permission[1][0].settings) == 1 %} checked {% endif %}></td>
-            <td> <button type="submit" name="set_permission_book" class="btn btn-primary" >Apply</button></td>
+            <td> <input type="checkbox" name="permission[]" value="user" {% if(bPermission.user_table) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="book" {% if(bPermission.book_table) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="rqst" {% if(bPermission.request) == 1 %} checked {% endif %}></td>
+            <td> <input type="checkbox" name="permission[]" value="setting" {% if(bPermission.settings) == 1 %} checked {% endif %}></td>
+            <td> <button type="submit" name="setPermissionBook" class="btn btn-primary" >Apply</button></td>
         </tr>
     </form>
         

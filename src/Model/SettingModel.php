@@ -1,14 +1,57 @@
 <?php
+/**
+ * Bookmodal that queries all the queries related to the setting.
+ *
+ * PHP version 8.1.3
+ *
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    SVN: $Id$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 namespace Book\Bookxchange\Model;
 
+/**
+ * SettingModel, a controller for the setting, tha handles all the 
+ * setting related functions
+ * 
+ * @category   CategoryName
+ * @package    Bookxchange
+ * @author     Original Author <ajeettharu0@gmail.com>
+ * @copyright  1997-2005 The PHP Group
+ * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
+ * @version    SVN: $Id$
+ * @link       http://pear.php.net/package/PackageName
+ * @see        NetOther, Net_Sample::Net_Sample()
+ * @since      File available since Release 1.2.0
+ * @deprecated File deprecated in Release 2.0.0
+ */
 class SettingModel
 {
-    private $conn;
+    private $_conn;
+
+    /**
+     * Constructor for the setting controller.
+     * 
+     * @param $conn is the object for the database connection.
+     */
     public function __construct($conn)
     {
         $this->conn = $conn;
     }
-    public function allSettings_model()
+
+    /**
+     * Function to get all the setting from the setting table.
+     * 
+     * @return retuns the array with all setting model.
+     */
+    public function allSettingsModel()
     {
 
         $allSettingStmt = $this->conn->prepare("select * from setting");
@@ -17,11 +60,16 @@ class SettingModel
 
         $allSetting = $all->fetch_all(MYSQLI_ASSOC);
         return $allSetting;
-        // echo "<pre>";
-        // print_r($allSetting);
 
     }
 
+    /**
+     * Function to set the title for the page.
+     * 
+     * @param $title is a string value, obtained from the setting page.
+     * 
+     * @return string boolean value after setting the title.
+     */
     public function setTitleModel(String $title)
     {
 
@@ -31,6 +79,15 @@ class SettingModel
         $updateTitleStmt->execute();
         return true;
     }
+
+    /**
+     * Function to set mail
+     * 
+     * @param $mail is the unique string value.
+     * 
+     * @return returns true after setting the mail in
+     * mail section of the setting table. 
+     */
     public function setMailModel(string $mail)
     {
         $mail_from = "mail_from";
@@ -40,38 +97,58 @@ class SettingModel
         $updateMailStmt->execute();
         return true;
     }
+
+    /**
+     * Function to set welcome message
+     * 
+     * @param $welcome is the unique string value.
+     * 
+     * @return returns boolean value true after setting the welcome . 
+     */
     public function setWlcModel(string $welcome)
     {
         $welcome_text = "welcome_text";
 
-        $updateWelcomeStmt = $this->conn->prepare("update setting set value = ? where name = ?");
+        $updateWelcomeStmt = $this->conn->prepare(
+            "update setting set value = ? where name = ?"
+        );
         $updateWelcomeStmt->bind_param("ss", $welcome, $welcome_text);
         $updateWelcomeStmt->execute();
         return true;
     }
 
-    public function updateLogo_model($logo)
+    /**
+     * Function to upload the logo image.
+     * 
+     * @param $dest is the string.
+     * 
+     * @return returns boolean value true after setting the welcome . 
+     */
+    public function updateLogoModel($dest)
     {
-        // global $conn;
-        $img_name = $logo['name'];
-        $img_path = $logo['tmp_name'];
-
-        $dest = "../img/".$img_name;
-        move_uploaded_file($img_path, $dest);
-
         $logo = "logo";
-        $updateLogoStmt = $this->conn->prepare("update setting set value = ? where name = ?");
+        $updateLogoStmt = $this->conn->prepare(
+            "update setting set value = ? where name = ?"
+        );
         $updateLogoStmt->bind_param("ss", $dest, $logo);
         $updateLogoStmt->execute();
         return true;
 
     }
 
-    public function getTitle_model()
+
+    /**
+     * Function to get the title and show the message in the title section.
+     * 
+     * @return the title from the database.
+     */
+    public function getTitleModel()
     {
 
         $title = "site_title";
-        $getTitleStmt = $this->conn->prepare("select value from setting where name = ?");
+        $getTitleStmt = $this->conn->prepare(
+            "select value from setting where name = ?"
+        );
         $getTitleStmt->bind_param("s", $title);
         $getTitleStmt->execute();
         $getTitleResult = $getTitleStmt->get_result();
@@ -79,11 +156,18 @@ class SettingModel
         return $site_title['value'];
     }
 
-    public function getLogo_model()
+    /**
+     * Function to get the image name fromt he database
+     * 
+     * @return returns the logo image fetched from the database.
+     */
+    public function getLogoModel()
     {
 
         $logo = "logo";
-        $getLogoStmt = $this->conn->prepare("select value from setting where name = ?");
+        $getLogoStmt = $this->conn->prepare(
+            "select value from setting where name = ?"
+        );
         $getLogoStmt->bind_param("s", $logo);
         $getLogoStmt->execute();
         $getLogoRst = $getLogoStmt->get_result();
@@ -95,10 +179,17 @@ class SettingModel
         
     }
 
-    public function getWelcome_model(){
-
+    /**
+     * Function to get the welcome message in the login form
+     * 
+     * @return return a welcome message from the database.
+     */
+    public function getWelcomeModel()
+    {
         $wlc = "welcome_text";
-        $getWlcStmt = $this->conn->prepare("select value from setting where name = ?");
+        $getWlcStmt = $this->conn->prepare(
+            "select value from setting where name = ?"
+        );
         $getWlcStmt->bind_param("s", $wlc);
         $getWlcStmt->execute();
         $getWlcResult = $getWlcStmt->get_result();
