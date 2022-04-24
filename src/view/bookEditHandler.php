@@ -47,7 +47,10 @@ if (isset($_POST['BookId'])) {
     $bookDescription = $_POST['bookDescription'];
     $bookRating = $_POST['bookRating'];
 
-    $updateBook = $book->updateBookDetails($id, $bookName, $bookGenre, $bookAuthor, $bookEdition, $bookDescription, $bookRating);
+    $updateBook = $book->updateBookDetails(
+        $id, $bookName, $bookGenre, $bookAuthor,
+        $bookEdition, $bookDescription, $bookRating
+    );
     if ($updateBook) {
         $b_list = $book_m->getBooksModel();
         $bookListHtml = $twig->render('book_list.html.twig', ['b_array' => $b_list]);
