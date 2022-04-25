@@ -57,6 +57,7 @@ $bookManager = $permission->getAccessBook();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../style/style.css">
     <title><?php echo $title; ?></title>
 
 </head>
@@ -83,75 +84,72 @@ $bookManager = $permission->getAccessBook();
                        <?php if ($_SESSION['loggedIn'] == 'userManager') { 
                             if ($userManager['user_table'] == 1 ) {
                                 ?>
-                                <a class="nav-link active" href="
-                                <?php $base_url ?>/bookxchange/src/view/
-                                user_list.php">Users</a>
+                                <a class="nav-link" id="user" href="
+                                <?php $base_url ?>/bookxchange/src/view/user_list.php"
+                                >Users</a>
                         <!-- for book Manager -->
                             <?php }
                        } if ($_SESSION['loggedIn'] == 'userManager') { 
                            if ($bookManager['user_table'] == 1 ) {
                                 ?>
-                                <a class="nav-link active" href="
-                                <?php $base_url ?>/bookxchange/src/view/
-                                user_list.php">Users</a>
+                                <a class="nav-link" id="user" href="
+                                <?php $base_url ?>/bookxchange/src/view/user_list.php"
+                                >Users</a>
                         <!-- for superadmin -->
                            <?php }
                        } if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'superadmin' ) { ?>
-
-                        <a class="nav-link active" href="
-                            <?php $base_url ?>/bookxchange/src/view/
-                        user_list.php">Users</a>
-
+                       
+                        <a class="nav-link" id="user" href="
+                            <?php $base_url ?>/bookxchange/src/view/user_list.php"
+                            >Users</a>
                        <?php } ?>
                     </li>
                     <li class="nav-item">
                     <?php if ($_SESSION['loggedIn'] == 'userManager') { 
                         if ($userManager['book_table'] == 1 ) {
                             ?>
-                        <a class="nav-link active" href="
-                            <?php $base_url ?>/bookxchange/src/view/
-                        book_list.php">Books</a>
+                        <a class="nav-link" id="book" href="
+                            <?php $base_url ?>/bookxchange/src/view/book_list.php"
+                            >Books</a>
                         <?php }
                     } ?>
                         <?php if ($_SESSION['loggedIn'] == 'bookManager') { 
                             if ($bookManager['book_table'] == 1 ) {
                                 ?>
-                        <a class="nav-link active" href="
-                                <?php $base_url ?>/bookxchange/src/view/
-                        book_list.php">Books</a>
+                        <a class="nav-link" id="book" href="
+                                <?php $base_url ?>/bookxchange/src/view/book_list.php"
+                                >Books</a>
                             <?php }
                         } ?>
                         
 
                 <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'superadmin' ) { ?>
-                        <a class="nav-link active" href="
-                        <?php $base_url ?>/bookxchange/src/view/
-                        book_list.php">Books</a>
+                        <a class="nav-link" id="book"  href="
+                        <?php $base_url ?>/bookxchange/src/view/book_list.php"
+                        >Books</a>
                 <?php } ?>
                     </li>
                     <li class="nav-item">
                     <?php if ($_SESSION['loggedIn'] == 'userManager') { 
                         if ($userManager['request'] == 1 ) {
                             ?>
-                        <a class="nav-link active" href="
-                            <?php $base_url ?>/bookxchange/src/view/
-                        request.php">Request</a>
+                        <a class="nav-link" id="rqst" href="
+                            <?php $base_url ?>/bookxchange/src/view/request.php">Request</a>
                         <?php }
                     } ?>
                     <?php if ($_SESSION['loggedIn'] == 'bookManager') { 
                         if ($bookManager['request'] == 1 ) {
                             ?>
-                        <a class="nav-link active" href="
-                            <?php $base_url ?>/bookxchange/src/view/
-                        request.php">Request</a>
+                        <a class="nav-link" id="rqst" href="
+                            <?php $base_url ?>/bookxchange/src/view/request.php">Request</a>
                         <?php }
                     } ?>
 
                         <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'superadmin' ) { ?>
 
-                        <a class="nav-link active" href="
-                            <?php $base_url ?>/bookxchange/src/view/
-                        request.php">Request</a>
+                        <a class="nav-link" id="rqst" href="
+                            <?php $base_url ?>/bookxchange/src/view/request.php"
+                            >Request</a>
 
                         <?php } ?>
                     </li>
@@ -159,39 +157,34 @@ $bookManager = $permission->getAccessBook();
                     <?php if ($_SESSION['loggedIn'] == 'userManager') { 
                         if ($userManager['settings'] == 1 ) {
                             ?>
-                        <a href="<?php $base_url ?>/bookxchange/src/settings/
-                        setting.php"
-                            class="nav-link active">Settings</a>
+                        <a id="sett" href="<?php $base_url ?>/bookxchange/src/settings/setting.php"
+                            class="nav-link">Settings</a>
                         <?php }
                     } ?>
                     <?php if ($_SESSION['loggedIn'] == 'bookManager') { 
                         if ($bookManager['settings'] == 1 ) {
                             ?>
-                        <a href="<?php $base_url ?>/bookxchange/src/
-                        settings/setting.php"
-                            class="nav-link active">Settings</a>
+                        <a id="sett" href="<?php $base_url ?>/bookxchange/src/settings/setting.php"
+                            class="nav-link">Settings</a>
                         <?php }
                     } ?>
                         <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == 'superadmin' ) { ?>
 
-                            <a href="<?php $base_url ?>/bookxchange/src/
-                            settings/setting.php"
-                            class="nav-link active">Settings</a>
+                            <a id="sett" href="<?php $base_url ?>/bookxchange/src/settings/setting.php"
+                            class="nav-link">Settings</a>
 
                         <?php } ?>
 
                     </li>
                     <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']== 'superadmin') { ?>
                     <li class="nav-item">
-                        <a href="<?php $base_url ?>/bookxchange/src/
-                        settings/permission.php"
-                            class="nav-link active">Permissions</a>
+                        <a id="perm" href="<?php $base_url ?>/bookxchange/src/settings/permission.php"
+                            class="nav-link">Permissions</a>
                     </li>
                     <?php } ?>
 
 
                 </ul>
-
 
             </div>
                 <?php if (isset($_SESSION['loggedIn'])) {
@@ -200,8 +193,8 @@ $bookManager = $permission->getAccessBook();
                 } ?>
 
 
-            <a href="<?php $base_url ?>/bookxchange/src/view/
-            logout.php" class="btn btn-primary">LogOut</a>
+            <a href="<?php $base_url ?>/bookxchange/src/view/logout.php"
+             class="btn btn-primary">LogOut</a>
 
             <?php } ?>
         </div>
@@ -209,6 +202,15 @@ $bookManager = $permission->getAccessBook();
 
 
     <script src="../../bootstrap/js/bootstrap.js"></script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <!-- <script src="../js/script.js"></script> -->
+    <script>
+        $("a").click(function(){
+        $(a).removeClass("active");
+        $(this).addClass("active");
+    });
+    console.log("dslk");
+    </script>
 
 <!-- </body>
 

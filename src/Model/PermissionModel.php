@@ -56,53 +56,11 @@ class PermissionModel
 
 
     /**
-     * Function to show all the permission
-     *
-     * @return returns all the permission setting to the twig file
-     */
-    public function permissionModel()
-    {
-       
-        // global $conn;
-        $allPermission = array();
-        $userManagerPermission = array();
-        $bookManagerPermission = array();
-
-        $userPermissionId = 1;
-        $userPermissionStmt = $this->conn->prepare(
-            "select * from permission where id = ?"
-        );
-        $userPermissionStmt->bind_param("i", $userPermissionId);
-        $userPermissionStmt->execute();
-        $userPermissionRst = $userPermissionStmt->get_result();
-        $userPermission = $userPermissionRst->fetch_array(MYSQLI_ASSOC);
-        array_push($userManagerPermission, $userPermission);
-
-
-        $bookPermissionId = 2;
-        $bookPermissionStmt = $this->conn->prepare(
-            "select * from permission where id = ?"
-        );
-        $bookPermissionStmt->bind_param("i", $bookPermissionId);
-        $bookPermissionStmt->execute();
-        $bookPermissionRst = $bookPermissionStmt->get_result();
-        $bookPermission = $bookPermissionRst->fetch_array(MYSQLI_ASSOC);
-        array_push($bookManagerPermission, $bookPermission);
-
-        array_push($allPermission, $userManagerPermission);
-        array_push($allPermission, $bookManagerPermission);
-
-        // echo "<pre>";
-        // print_r($allPermission);
-        return $allPermission;
-    }
-
-    /**
      * Function to get the permission for the User
      * 
      * @return returns array for the user Permission
      */
-    public function UPermission()
+    public function UPermission() : array
     {
         $userManagerId = 1;
         $UPermisionStmt = $this->conn->prepare(
@@ -121,7 +79,7 @@ class PermissionModel
      * 
      * @return returns array for the user Permission
      */
-    public function BPermission()
+    public function BPermission() : array
     {
         $bookManagerId = 2;
         $BPermisionStmt = $this->conn->prepare(
@@ -151,7 +109,7 @@ class PermissionModel
      */
     public function setPermissionUserModel(
         string $user_table,string $book_table,string $request,string $setting
-    ) {
+    ) : bool {
 
         $userPermissionId = 1;
         $userPermissionValue = 0;
@@ -215,7 +173,7 @@ class PermissionModel
      */
     public function setPermissionBookModel(
         string $user_table,string $book_table,string $request,string $setting
-    ) {
+    ) : bool {
 
         $bookPermissionId = 2;
         $bookPermissionValue = 0;
@@ -266,7 +224,7 @@ class PermissionModel
      * 
      * @return returns array of permission for the user.
      */
-    public function getAccessUserModel()
+    public function getAccessUserModel() : array
     {
 
         $user_type = 2;
@@ -289,7 +247,7 @@ class PermissionModel
      * 
      * @return returns array of permission for the Book.
      */
-    public function getAccessBookModel()
+    public function getAccessBookModel() : array
     {
 
         $book_type = 3;

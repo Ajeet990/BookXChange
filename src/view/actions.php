@@ -39,8 +39,12 @@ if (isset($_POST['update_user'])) {
     $uRating = floatval($_POST['u_rating']);
 
     $user->updateUser($id, $uName, $uMobile, $uAddress, $uEmail, $uRating);
-    
+}
 
+if (isset($_POST['login'])) {
+    $uname = $_POST['uname'];
+    $upass = $_POST['upass'];
+    $user->login($uname, $upass);
 }
 
 if (isset($_GET['id']) && isset($_GET['action'])) {

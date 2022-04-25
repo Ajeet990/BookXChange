@@ -49,7 +49,7 @@ class RequestModel
      * @return returns to the twig, that contain all the book requests,
      * book returned and book borrowed.
      */
-    public function getRequests()
+    public function getRequests() : array
     {
         $allRequestStmt = $this->conn->prepare(
             "SELECT borrower.user_name as Requester, r.requester_id,

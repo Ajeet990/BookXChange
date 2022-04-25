@@ -80,6 +80,18 @@ class UserController
     }
 
     /**
+     * LogInForm function that displays the loginForm in the landing page
+     * 
+     * @return returns the loginForm from the twig.
+     */
+    public function logInForm()
+    {
+        $welcome = $this->user_m->getWelcomeModel();
+        return $this->twig->render('logInForm.html.twig', ['welcome' => $welcome]);
+
+    }
+
+    /**
      * Function to get the user log In
      * 
      * @param $uname is the string value that holds the username
@@ -102,13 +114,17 @@ class UserController
                 } elseif ($uname == "userManager") {
                     $_SESSION['loggedIn'] = "userManager";
                 }
-                header('location:src/view/welcome.php');
+                header('location:welcome.php');
             } else {
                 $_SESSION['wrong'] = "false";
-                header('location:index.php');
+                header('location:../../index.php');
                 exit;
             }
 
+        } else {
+            $_SESSION['wrong'] = "false";
+            header('location:../../index.php');
+            exit;
         }
     }
 

@@ -146,9 +146,8 @@ class PermissionController
      * 
      * @return returns permissions for userManger
      */
-    public function getAccessUser()
+    public function getAccessUser() : array
     {
-
         $user = $this->permission_m->getAccessUserModel();
         return $user;
     }
@@ -158,9 +157,8 @@ class PermissionController
      * 
      * @return returns permissions for userManger
      */
-    public function getAccessBook()
+    public function getAccessBook() : array
     {
-
         $book = $this->permission_m->getAccessBookModel();
         return $book;
     }

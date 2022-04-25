@@ -133,7 +133,7 @@ class SettingController
      * 
      * @return return the title of the page 
      */
-    public function getTitle()
+    public function getTitle() : string
     {
 
         $title = $this->setting_m->getTitleModel();
@@ -146,7 +146,7 @@ class SettingController
      * 
      * @return returns the welcome message.
      */
-    public function getWelcome()
+    public function getWelcome() : string
     {
 
         $welcome = $this->setting_m->getWelcomeModel();
@@ -158,7 +158,7 @@ class SettingController
      * 
      * @return the logo image from the database
      */
-    public function getLogo()
+    public function getLogo() : string
     {
         $logo = $this->setting_m->getLogoModel();
         $logo_name = $logo['value'];
@@ -166,10 +166,5 @@ class SettingController
         return $logo_name;
 
     }
-
-
-
-
-
 
 }

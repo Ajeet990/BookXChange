@@ -52,7 +52,7 @@ class UserModel
      * 
      * @return return true if the username exists else false
      */
-    public function checkUserModel(string $uname)
+    public function checkUserModel(string $uname): bool
     {
         $checkUserStmt = $this->conn->prepare(
             "select * from register where user_name = ?"
@@ -74,7 +74,7 @@ class UserModel
      * 
      * @return returns the hashed password of the user.
      */
-    public function getPassModel($uname)
+    public function getPassModel($uname) : array
     {
         $getPassStmt = $this->conn->prepare(
             "select password from register where user_name = ?"
@@ -92,7 +92,7 @@ class UserModel
      * 
      * @return returns the data of user.
      */
-    public function getUserDataModel()
+    public function getUserDataModel() : array
     {
         $bSatus = "blocked";
         $aStatus = "active";
@@ -119,7 +119,7 @@ class UserModel
      * 
      * @return returns the array of the book data overall.
      */
-    public function getBookDataModel()
+    public function getBookDataModel() : array
     {
         $bSatus = "blocked";
         $aStatus = "active";
@@ -143,7 +143,7 @@ class UserModel
      * 
      * @return return the list of all the user to the twig file.
      */
-    public function getUsersModel()
+    public function getUsersModel() : array
     {
         $user_type = 0;
         $user_data = array();
@@ -168,7 +168,7 @@ class UserModel
      * 
      * @return return the user details.
      */
-    public function getUserDetails(int $id)
+    public function getUserDetails(int $id): array
     {
         $userDetailsStmt = $this->conn->prepare(
             "select * from register where id = ?"
@@ -188,7 +188,7 @@ class UserModel
      * 
      * @return the book details of that particular user.
      */
-    public function userBookDetailsModel(int $id)
+    public function userBookDetailsModel(int $id) : array
     {
         $userDetailsStmt = $this->conn->prepare(
             "SELECT receiver.user_name as receiver_name, owner.user_name
@@ -217,7 +217,7 @@ class UserModel
      * 
      * @return returns true after deleting the user.
      */
-    public function deleteUserModel(int $id)
+    public function deleteUserModel(int $id) : bool
     {
         $userDltStmt = $this->conn->prepare(
             "Delete from register where id = ?"
@@ -236,7 +236,7 @@ class UserModel
      * 
      * @return returns true after blocking the user.
      */
-    public function blockUserModel(int $id)
+    public function blockUserModel(int $id) : bool
     {
         $status = "blocked";
         $userDltStmt = $this->conn->prepare(
@@ -257,7 +257,7 @@ class UserModel
      * 
      * @return returns the data of the user.
      */
-    public function editUserFormModel(int $id)
+    public function editUserFormModel(int $id) : array
     {
         $editUserStmt = $this->conn->prepare("select * from register where id = ?");
         $editUserStmt->bind_param("i", $id);
@@ -286,7 +286,7 @@ class UserModel
     public function updateUserModel(
         int $id,string $uName,string $uMobile, string $uAddress,
         string $uEmail,float $uRating
-    ) {
+    ) : bool {
         $updateStmt = $this->conn->prepare(
             "update register set user_name = ?, mobile_no = ?,
             address = ?, email = ?, rating = ? where id = ?"
@@ -307,7 +307,7 @@ class UserModel
      * 
      * @return returns true after unblocking the user.
      */
-    public function unBlockUserModel(int $id)
+    public function unBlockUserModel(int $id) : bool
     {
         $status = "active";
         $unBlockStmt = $this->conn->prepare(
@@ -316,5 +316,23 @@ class UserModel
         $unBlockStmt->bind_param("si", $status, $id);
         $unBlockStmt->execute();
         return true;
+    }
+
+    /**
+     * Function to get the welcome message in the login form
+     * 
+     * @return return a welcome message from the database.
+     */
+    public function getWelcomeModel() : string
+    {
+        $wlc = "welcome_text";
+        $getWlcStmt = $this->conn->prepare(
+            "select value from setting where name = ?"
+        );
+        $getWlcStmt->bind_param("s", $wlc);
+        $getWlcStmt->execute();
+        $getWlcResult = $getWlcStmt->get_result();
+        $Wlc = $getWlcResult->fetch_array(MYSQLI_ASSOC);
+        return $Wlc['value'];
     }
 }

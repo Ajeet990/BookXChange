@@ -51,7 +51,7 @@ class SettingModel
      * 
      * @return retuns the array with all setting model.
      */
-    public function allSettingsModel()
+    public function allSettingsModel() : array
     {
 
         $allSettingStmt = $this->conn->prepare("select * from setting");
@@ -70,7 +70,7 @@ class SettingModel
      * 
      * @return string boolean value after setting the title.
      */
-    public function setTitleModel(String $title)
+    public function setTitleModel(String $title) : bool
     {
 
         $site_title = "site_title";
@@ -88,7 +88,7 @@ class SettingModel
      * @return returns true after setting the mail in
      * mail section of the setting table. 
      */
-    public function setMailModel(string $mail)
+    public function setMailModel(string $mail) : bool
     {
         $mail_from = "mail_from";
 
@@ -105,7 +105,7 @@ class SettingModel
      * 
      * @return returns boolean value true after setting the welcome . 
      */
-    public function setWlcModel(string $welcome)
+    public function setWlcModel(string $welcome) : bool
     {
         $welcome_text = "welcome_text";
 
@@ -124,7 +124,7 @@ class SettingModel
      * 
      * @return returns boolean value true after setting the welcome . 
      */
-    public function updateLogoModel($dest)
+    public function updateLogoModel($dest) : bool
     {
         $logo = "logo";
         $updateLogoStmt = $this->conn->prepare(
@@ -142,7 +142,7 @@ class SettingModel
      * 
      * @return the title from the database.
      */
-    public function getTitleModel()
+    public function getTitleModel() : string
     {
 
         $title = "site_title";
@@ -154,6 +154,7 @@ class SettingModel
         $getTitleResult = $getTitleStmt->get_result();
         $site_title = $getTitleResult->fetch_array(MYSQLI_ASSOC);
         return $site_title['value'];
+
     }
 
     /**
@@ -161,7 +162,7 @@ class SettingModel
      * 
      * @return returns the logo image fetched from the database.
      */
-    public function getLogoModel()
+    public function getLogoModel() : array
     {
 
         $logo = "logo";
@@ -172,32 +173,8 @@ class SettingModel
         $getLogoStmt->execute();
         $getLogoRst = $getLogoStmt->get_result();
         $logo_name = $getLogoRst->fetch_array(MYSQLI_ASSOC);
-        // $logo_name = $logo_name['value'];
-        // $logo_name = substr($logo_name, 7);
         return $logo_name;
-        // echo $logo_name;
-        
+
     }
-
-    /**
-     * Function to get the welcome message in the login form
-     * 
-     * @return return a welcome message from the database.
-     */
-    public function getWelcomeModel()
-    {
-        $wlc = "welcome_text";
-        $getWlcStmt = $this->conn->prepare(
-            "select value from setting where name = ?"
-        );
-        $getWlcStmt->bind_param("s", $wlc);
-        $getWlcStmt->execute();
-        $getWlcResult = $getWlcStmt->get_result();
-        $Wlc = $getWlcResult->fetch_array(MYSQLI_ASSOC);
-        return $Wlc['value'];
-    }
-
-    
-
 
 }

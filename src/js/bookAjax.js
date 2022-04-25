@@ -60,7 +60,7 @@ function deleteBook(id)
             data : { id : id, action : action },
             success : function(data){
                 var parsed_data = jQuery.parseJSON( data );
-                console.log(parsed_data);
+                // console.log(parsed_data);
                 $(document).find('#bookListDiv').html(parsed_data.html);
             }
         })
@@ -68,30 +68,47 @@ function deleteBook(id)
 }
 
 
+// function getBookDetails(id)
+// {
+//     $('#hiddenBookId').val(id);
+
+//     $.post('bookEditHandler.php', { bookID : id }, function(data, status){
+//             var book = JSON.parse(data);
+//             $('#b_name').val(book.book_name);
+//             $('#b_genre').val(book.genre);
+//             $('#b_author').val(book.author);
+//             $('#b_edition').val(book.edition);
+//             $('#b_description').val(book.description);
+//             $('#b_rating').val(book.rating);
+
+//     })
+//     $('#editBookModal').modal('show');
+// }
+
 function getBookDetails(id)
 {
-    $('#hiddenBookId').val(id);
-
-
-    $.post('bookEditHandler.php', { bookID : id }, function(data, status){
-            var book = JSON.parse(data);
-            $('#b_name').val(book.book_name);
-            $('#b_genre').val(book.genre);
-            $('#b_author').val(book.author);
-            $('#b_edition').val(book.edition);
-            $('#b_description').val(book.description);
-            $('#b_rating').val(book.rating);
-
+    $.ajax({
+        url : "bookEditHandler.php",
+        type : "POST",
+        data : { bookID : id },
+        success : function(data) {
+            var parsed_data = jQuery.parseJSON( data );
+            // console.log(parsed_data);
+            $(document).find('#bookListDiv').html(parsed_data.html);
+        }
     })
-    $('#editBookModal').modal('show');
+
 }
 
 function updateBookDetails()
 {
+    var isValid = $('form').valid();
+    if(!isValid) {
+      e.preventDefault();
+    }
+
     var bookId = $('#hiddenBookId').val();
-    // console.log(bookId);
     var book_name = $('#b_name').val();
-    // console.log(book_name);
     var book_genre = $('#b_genre').val();
     var book_author = $('#b_author').val();
     var book_edition = $('#b_edition').val();

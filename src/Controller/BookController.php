@@ -71,6 +71,22 @@ class BookController
     }
 
     /**
+     * Function to show the edit book form
+     * 
+     * @param $bookDetail array that contains the book details
+     * 
+     * @return returns the data to the twig file(edit_book_form.html.twig)
+     */
+    public function showBookEditForm($bookDetail)
+    {
+        return $this->twig->render(
+            'edit_book_form.html.twig', ['bookDetial' => $bookDetail]
+        );
+
+
+    }
+
+    /**
      * Function to block the book
      *
      * @param $id is id of the book which needs to be blocked
@@ -181,7 +197,7 @@ class BookController
      *
      * @return $bookDetail a array with the details of the book
      */
-    public function getBookDetail(int $bookId)
+    public function getBookDetail(int $bookId) : array
     {
         $bookDetail = $this->book_m->getBookDetailModel($bookId);
         return $bookDetail;
@@ -206,7 +222,7 @@ class BookController
         int $id, string $bookName, string $bookGenre,
         string $bookAuthor, int $bookEdition, string $bookDescription,
         float $bookRating
-    ) {
+    ) : bool {
         $updateBookDetail = $this->book_m->updateBookDetailsModel(
             $id, $bookName, $bookGenre, $bookAuthor,
             $bookEdition, $bookDescription, $bookRating

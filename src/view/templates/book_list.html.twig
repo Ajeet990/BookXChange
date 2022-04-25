@@ -1,55 +1,4 @@
 
-
-
-{# Show book details in a modal #}
-  <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit book</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="edit_book">
-          <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book Name</label>
-                <input type="text" id="b_name" name="book_name" class="form-control" >
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book Genre</label>
-                <input type="text" id="b_genre" name="book_genre" class="form-control" >
-              </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book author</label>
-                <input type="text" id="b_author" name="book_author"class="form-control" >
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book edition</label>
-                <input type="text" id="b_edition" name="book_edition" class="form-control" >
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book description</label>
-                <input type="text" id="b_description" name="book_description" class="form-control" >
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Book rating</label>
-                <input type="text" id="b_rating" name="book_rating" class="form-control" >
-              </div>
-              
-              
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary" onclick="updateBookDetails()">Update</button>
-            <input type="hidden" id="hiddenBookId">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 <div class="container my-3">
     <table id="book_table" class="table table-striped container">
             <thead>
@@ -106,7 +55,12 @@
             </tbody>
     </table>
 </div>
-
+        <script>
+            $(document).ready(function() {
+                
+                    $('#book').addClass("active");
+            });
+        </script>
 
 <script src="../js/jqueryValidator.js"></script>
 <script src="../js/validation.js"></script>

@@ -58,7 +58,7 @@ class BookModel
      *
      * @return returns the list of book in an array
      */
-    public function getBooksModel()
+    public function getBooksModel() : array
     {
 
         // $getBooksStmt = $this->conn->prepare("select * from books");
@@ -85,7 +85,7 @@ class BookModel
      *
      * @return returns a boolean value true after blocking the book
      */
-    public function blockBookModel(int $id)
+    public function blockBookModel(int $id) : bool
     {
         $status = "blocked";
         $blkBookStmt = $this->conn->prepare(
@@ -106,7 +106,7 @@ class BookModel
      *
      * @return returns a boolean value true after unblocking the book
      */
-    public function unBlockBookModel(int $id)
+    public function unBlockBookModel(int $id) : bool
     {
         $status = "active";
         $unblkBookStmt = $this->conn->prepare(
@@ -125,7 +125,7 @@ class BookModel
      *
      * @return returns a boolean value true after deleting the book
      */
-    public function deleteBookModel(int $id)
+    public function deleteBookModel(int $id) : bool
     {
         $dltBookStmt = $this->conn->prepare("delete from books where id = ?");
         $dltBookStmt->bind_param("i", $id);
@@ -141,17 +141,13 @@ class BookModel
      *
      * @return returns a array with the details of the book
      */
-    public function bookProfileModel(int $id)
+    public function bookProfileModel(int $id) : array
     {
         $bookDetailStmt = $this->conn->prepare("select * from books where id = ?");
         $bookDetailStmt->bind_param("i", $id);
         $bookDetailStmt->execute();
         $bookResult = $bookDetailStmt->get_result();
         $bookDetail = $bookResult->fetch_assoc();
-        // echo "<pre>";
-        // print_r($bookDetail);
-
-        // die;
 
         return $bookDetail;
     }
@@ -163,7 +159,7 @@ class BookModel
      *
      * @return returns a array with the history of the book
      */
-    public function bookHistory(int $id)
+    public function bookHistory(int $id) : array
     {
         $bookHistoryStmt = $this->conn->prepare(
             "SELECT b.book_name,rg.user_name as requester, r.status,
@@ -193,7 +189,7 @@ class BookModel
      *
      * @return $bookDetail a array with the details of the book
      */
-    public function getBookDetailModel(int $bookId)
+    public function getBookDetailModel(int $bookId) : array
     {
         $bookDetailStmt = $this->conn->prepare("select * from books where id = ?");
         $bookDetailStmt->bind_param("i", $bookId);
@@ -224,7 +220,7 @@ class BookModel
     public function updateBookDetailsModel(
         int $id, string $bookName, string $bookGenre, string $bookAuthor,
         int $bookEdition, string $bookDescription, float $bookRating
-    ) {
+    ) : bool {
         $updateBookStmt = $this->conn->prepare(
             "update books set book_name = ?,
             genre = ?, author = ?, edition = ?, description = ?,

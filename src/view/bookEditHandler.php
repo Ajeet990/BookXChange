@@ -29,17 +29,28 @@ $twig = new Environment($loader);
 
 //code to get book details on the modal to edit
 if (isset($_POST['bookID']) && $_POST['bookID'] != "") {
-    
     $bookId = intval($_POST['bookID']);
-
     $bookDetail = $book->getBookDetail($bookId);
-    echo json_encode($bookDetail);
+    // echo json_encode($bookDetail);
+    // $booForm = $book->showBookEditForm($bookDetail);
+    $bookDetailHtml = $twig->render(
+        'edit_book_form.html.twig', [
+            'bookDetail' => $bookDetail,
+            'bookId' => $bookId
+        ]
+    );
+    $jsonresponse = [
+        "html" => $bookDetailHtml
+    ];
+    echo json_encode($jsonresponse);
+    exit;
+
 
 }
 
 //code to update bookDetail that are filled in modal
 if (isset($_POST['BookId'])) {
-    $id = $_POST['BookId'];
+    $id = intval($_POST['BookId']);
     $bookName = $_POST['bookName'];
     $bookGenre = $_POST['bookGenre'];
     $bookAuthor = $_POST['bookAuthor'];

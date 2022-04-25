@@ -15,7 +15,7 @@
  * @since      File available since Release 1.2.0
  * @deprecated File deprecated in Release 2.0.0
  */
-    // session_start();
+
 require 'vendor/autoload.php';
     
 require 'src/config/db.php';
@@ -31,7 +31,9 @@ if (isset($_SESSION['wrong']) && $_SESSION['wrong'] == "false") {
 }
 
 if (!isset($_SESSION['login']) ) {
-    include 'src/include/loginForm.php';
+    // include 'src/include/loginForm.php';
+    echo $user->logInForm();
+
 }
 
 ?>
