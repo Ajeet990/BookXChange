@@ -112,7 +112,8 @@
         <script>
             $(document).ready(function() {
                 $('#bookDetails').DataTable();
-                percentCal({{ bookDetails.rating }})
+                percentCal({{ bookDetails.rating }});
+                $('#book').addClass("active");
 
             });
         </script>

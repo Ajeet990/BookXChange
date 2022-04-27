@@ -89,7 +89,7 @@ $bookManager = $permission->getAccessBook();
                                 >Users</a>
                         <!-- for book Manager -->
                             <?php }
-                       } if ($_SESSION['loggedIn'] == 'userManager') { 
+                       } if ($_SESSION['loggedIn'] == 'bookManager') { 
                            if ($bookManager['user_table'] == 1 ) {
                                 ?>
                                 <a class="nav-link" id="user" href="

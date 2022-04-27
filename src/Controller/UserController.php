@@ -4,10 +4,10 @@
  *
  * PHP version 8.1.3
  *
- * @category   CategoryName
+ * @category   Book_Apllication
  * @package    Bookxchange
  * @author     Original Author <ajeettharu0@gmail.com>
- * @copyright  1997-2005 The PHP Group
+ * @copyright  2021-2022 Ajeet Tharu
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
  * @version    SVN: $Id$
  * @link       http://pear.php.net/package/PackageName

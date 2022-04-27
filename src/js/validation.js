@@ -172,11 +172,16 @@ jQuery('#setting').validate({
         },
         logo:{
 
-            // filesize:2,
-            // extension:"jpg|png|jpeg",
-            // accept:"image/*"
-            // extension:"png|jpg|jpeg"
+            extension:"png|jpg|jpeg"
+            
+        },
+        submitHandler: function(form) {  
+            if ($(form).valid()) 
+                form.submit(); 
+            return false; 
         }
+     
+     
 
     },
     messages:{
@@ -192,9 +197,9 @@ jQuery('#setting').validate({
             required:"** please enter welcome message **"
         },
         logo:{
-            // extension:"** Only Photos are allowed **",
-            // filesize:"Image should be less than 2 mb",
-            // accept:"Only images are allowed"
+            extension:"** Only Photos are allowed **"
+
+
         }
 }
 })
