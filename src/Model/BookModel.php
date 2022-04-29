@@ -219,16 +219,16 @@ class BookModel
      */
     public function updateBookDetailsModel(
         int $id, string $bookName, string $bookGenre, string $bookAuthor,
-        int $bookEdition, string $bookDescription, float $bookRating
+        int $bookEdition, string $bookDescription
     ) : bool {
         $updateBookStmt = $this->conn->prepare(
             "update books set book_name = ?,
-            genre = ?, author = ?, edition = ?, description = ?,
-            rating = ? where id = ?"
+            genre = ?, author = ?, edition = ?, description = ?
+            where id = ?"
         );
         $updateBookStmt->bind_param(
-            "sssisdi", $bookName, $bookGenre, 
-            $bookAuthor, $bookEdition, $bookDescription, $bookRating, $id
+            "sssisi", $bookName, $bookGenre, 
+            $bookAuthor, $bookEdition, $bookDescription, $id
         );
         $updateBookStmt->execute();
         return true;

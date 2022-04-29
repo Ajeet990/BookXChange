@@ -285,14 +285,14 @@ class UserModel
      */
     public function updateUserModel(
         int $id,string $uName,string $uMobile, string $uAddress,
-        string $uEmail,float $uRating
+        string $uEmail
     ) : bool {
         $updateStmt = $this->conn->prepare(
             "update register set user_name = ?, mobile_no = ?,
-            address = ?, email = ?, rating = ? where id = ?"
+            address = ?, email = ? where id = ?"
         );
         $updateStmt->bind_param(
-            "ssssdi", $uName, $uMobile, $uAddress, $uEmail, $uRating, $id
+            "ssssi", $uName, $uMobile, $uAddress, $uEmail, $id
         );
         $updateStmt->execute();
         return true;

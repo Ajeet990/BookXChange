@@ -56,11 +56,11 @@ if (isset($_POST['BookId'])) {
     $bookAuthor = $_POST['bookAuthor'];
     $bookEdition = $_POST['bookEdition'];
     $bookDescription = $_POST['bookDescription'];
-    $bookRating = $_POST['bookRating'];
+    // $bookRating = $_POST['bookRating'];
 
     $updateBook = $book->updateBookDetails(
         $id, $bookName, $bookGenre, $bookAuthor,
-        $bookEdition, $bookDescription, $bookRating
+        $bookEdition, $bookDescription
     );
     if ($updateBook) {
         $b_list = $book_m->getBooksModel();

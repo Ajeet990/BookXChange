@@ -36,9 +36,9 @@ if (isset($_POST['update_user'])) {
     $uMobile = $_POST['u_mobile'];
     $uAddress = $_POST['u_address'];
     $uEmail = $_POST['u_email'];
-    $uRating = floatval($_POST['u_rating']);
+    // $uRating = floatval($_POST['u_rating']);
 
-    $user->updateUser($id, $uName, $uMobile, $uAddress, $uEmail, $uRating);
+    $user->updateUser($id, $uName, $uMobile, $uAddress, $uEmail);
 }
 
 if (isset($_POST['login'])) {

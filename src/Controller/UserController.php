@@ -248,10 +248,10 @@ class UserController
      */
     public function updateUser(
         int $id,string $uName,string $uMobile, string $uAddress,
-        string $uEmail,float $uRating
+        string $uEmail
     ) {
         $updateRst = $this->user_m->updateUserModel(
-            $id, $uName, $uMobile, $uAddress, $uEmail, $uRating
+            $id, $uName, $uMobile, $uAddress, $uEmail
         );
         if ($updateRst) {
             $_SESSION['success'] = "User updated successfully";

@@ -113,8 +113,8 @@ function updateBookDetails()
     var book_author = $('#b_author').val();
     var book_edition = $('#b_edition').val();
     var book_description = $('#b_description').val();
-    var book_rating = $('#b_rating').val();
-    $.post('bookEditHandler.php', { BookId : bookId, bookName:book_name, bookGenre:book_genre, bookAuthor:book_author, bookEdition:book_edition, bookDescription:book_description, bookRating:book_rating }, function(data, status){
+    // var book_rating = $('#b_rating').val();
+    $.post('bookEditHandler.php', { BookId : bookId, bookName:book_name, bookGenre:book_genre, bookAuthor:book_author, bookEdition:book_edition, bookDescription:book_description}, function(data, status){
         var parsed_data = jQuery.parseJSON( data );
         console.log(parsed_data);
         $(document).find('#bookListDiv').html(parsed_data.html);

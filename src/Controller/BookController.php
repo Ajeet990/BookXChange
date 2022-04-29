@@ -98,7 +98,7 @@ class BookController
         // echo "blocking book";
         $blkBookRst = $this->book_m->blockBookModel($id);
         if ($blkBookRst) {
-            $b_list = $this->book_m->get_books_model();
+            $b_list = $this->book_m->getBooksModel();
             $bookListHtml = $this->twig->render(
                 'book_list.html.twig',
                 ['b_array' => $b_list]
@@ -124,7 +124,7 @@ class BookController
     {
         $unBlkBook = $this->book_m->unBlockBookModel($id);
         if ($unBlkBook) {
-            $b_list = $this->book_m->get_books_model();
+            $b_list = $this->book_m->getBooksModel();
             $bookListHtml = $this->twig->render(
                 'book_list.html.twig', ['b_array' => $b_list]
             );
@@ -220,12 +220,11 @@ class BookController
      */
     public function updateBookDetails(
         int $id, string $bookName, string $bookGenre,
-        string $bookAuthor, int $bookEdition, string $bookDescription,
-        float $bookRating
+        string $bookAuthor, int $bookEdition, string $bookDescription
     ) : bool {
         $updateBookDetail = $this->book_m->updateBookDetailsModel(
             $id, $bookName, $bookGenre, $bookAuthor,
-            $bookEdition, $bookDescription, $bookRating
+            $bookEdition, $bookDescription
         );
         return true;
     }
