@@ -55,7 +55,7 @@ class UserModel
     public function checkUserModel(string $uname): bool
     {
         $checkUserStmt = $this->conn->prepare(
-            "select * from register where user_name = ?"
+            "select id from register where user_name = ?"
         );
         $checkUserStmt->bind_param("s", $uname);
         $checkUserStmt->execute();
@@ -192,7 +192,7 @@ class UserModel
     {
         $userDetailsStmt = $this->conn->prepare(
             "SELECT receiver.user_name as receiver_name, owner.user_name
-            as owner_name,b.book_name,r.status, r.reason, r.rqst_copies,
+            as owner_name,b.book_name,r.status, r.reason,
             r.rqst_date, r.issued_date, r.return_date 
             FROM request as r
             INNER JOIN register as receiver ON receiver.id=r.requester_id

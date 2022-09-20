@@ -1,7 +1,3 @@
-// $(document).ready(function() {
-//     $('#book_table').DataTable();
-// });
-
 
 function blockBook(id)
 {
@@ -13,13 +9,12 @@ function blockBook(id)
             url : "actions.php",
             // type : "POST",
             type : "GET",
+            dataType: 'json',
             data : { id : id, action : action },
             success : function(data){
-                // var row = document.getElementById("tr"+Num);
-                // row.parentNode.removeChild(row);
-                var parsed_data = jQuery.parseJSON( data );
-                console.log(parsed_data);
-                $(document).find('#bookListDiv').html(parsed_data.html);
+                
+                console.log(data.html);
+                $(document).find('#bookListDiv').html(data.html);
             }
         })
     }
@@ -51,19 +46,24 @@ function unBlockBook(id)
 
 function deleteBook(id)
 {
+    // console.log("i am here");
     var conf = confirm("Are you sure want to delete this book");
     var action = "delete_book";
     if (conf == true){
         $.ajax({
             url : "actions.php",
             type : "GET",
+            dataType: 'json',
             data : { id : id, action : action },
-            success : function(data){
-                var parsed_data = jQuery.parseJSON( data );
-                // console.log(parsed_data);
-                $(document).find('#bookListDiv').html(parsed_data.html);
+            success : function(data) {
+                // console.log("data is "+data.html);
+                // var parsed_data = jQuery.parseJSON(data);
+                // console.log(data);
+                $(document).find('#bookListDiv').html(data.html);
+                // $("#bookListDiv").empty();
+                // $("#bookListDiv").html(data.html);
             }
-        })
+        });
     }
 }
 

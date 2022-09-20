@@ -147,11 +147,12 @@ class BookController
      */
     public function deleteBook(int $id)
     {
+
         $dltBook = $this->book_m->deleteBookModel($id);
         if ($dltBook) {
-            $b_list = $this->book_m->get_books_model();
+            $d_list = $this->book_m->getBooksModel();
             $bookListHtml = $this->twig->render(
-                'book_list.html.twig', ['b_array' => $b_list]
+                'book_list.html.twig', ['b_array' => $d_list]
             );
             $jsonresponse = [
                 "html" => $bookListHtml,

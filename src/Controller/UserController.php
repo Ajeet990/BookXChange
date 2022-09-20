@@ -107,6 +107,7 @@ class UserController
             $userPassResult = $this->user_m->getPassModel($uname);
             if (password_verify($upass, $userPassResult['password'])) {
                 $_SESSION['login'] = "success";
+                $_SESSION['ok'] = "done";
                 if ($uname == "superadmin") {
                     $_SESSION['loggedIn'] = "superadmin";
                 } elseif ($uname == "bookManager") {
@@ -116,13 +117,13 @@ class UserController
                 }
                 header('location:welcome.php');
             } else {
-                $_SESSION['wrong'] = "false";
+                $_SESSION['wrong'] = "Invalid credentials";
                 header('location:../../index.php');
                 exit;
             }
 
         } else {
-            $_SESSION['wrong'] = "false";
+            $_SESSION['wrong'] = "Username doesnot exit";
             header('location:../../index.php');
             exit;
         }

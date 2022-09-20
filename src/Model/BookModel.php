@@ -163,7 +163,7 @@ class BookModel
     {
         $bookHistoryStmt = $this->conn->prepare(
             "SELECT b.book_name,rg.user_name as requester, r.status,
-             r.reason, r.rqst_copies, r.rqst_date, r.issued_date, r.return_date
+             r.reason, r.rqst_date, r.issued_date, r.return_date
             FROM request as r
             INNER JOIN books as b ON b.id = r.book_id
             INNER JOIN register as rg ON rg.id = r.requester_id

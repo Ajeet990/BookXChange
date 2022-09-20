@@ -5,7 +5,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bookxchange1";
+$dbname = "bookapi";
 
 // $conn = mysqli_connect($servername, $username, $password, $dbname);
 

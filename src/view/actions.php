@@ -48,6 +48,8 @@ if (isset($_POST['login'])) {
 }
 
 if (isset($_GET['id']) && isset($_GET['action'])) {
+    // if (isset($_GET['id']) && $_GET['id'] != '') {
+
     $id = intval($_GET['id']);
     $action = $_GET['action'];
 
@@ -65,6 +67,12 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
     } elseif ($action == "unblockBook") {
         $book->unBlockBook($id);
     } elseif ($action == "delete_book") {
+        // $jsonresponse = [
+        //     "html_delete" => "ddfbdf",
+        // ];
+
+        // echo json_encode($jsonresponse);
+        // die();
         $book->deleteBook($id);
         // echo "Deleting book id ".$id;
     }
