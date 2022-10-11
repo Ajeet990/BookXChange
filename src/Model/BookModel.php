@@ -60,8 +60,6 @@ class BookModel
      */
     public function getBooksModel() : array
     {
-
-        // $getBooksStmt = $this->conn->prepare("select * from books");
         $getBooksStmt = $this->conn->prepare(
             "SELECT b.* , r.user_name as ownerName
             FROM books as b
@@ -74,8 +72,6 @@ class BookModel
 
         $books_data = $getBooksData->fetch_all(MYSQLI_ASSOC);
         return $books_data;
-        // echo "<pre>";
-        // print_r($books_data);
     }
 
     /**
@@ -95,7 +91,6 @@ class BookModel
         $blkBookStmt->execute();
 
         return true;
-        // echo "blocking book id ".$id;
 
     }
 
@@ -131,7 +126,6 @@ class BookModel
         $dltBookStmt->bind_param("i", $id);
         $dltBookStmt->execute();
         return true;
-        // echo "deleting ";
     }
 
     /**
@@ -174,9 +168,6 @@ class BookModel
         $bookHistoryStmt->execute();
         $bookHistoryRst = $bookHistoryStmt->get_result();
         $result = $bookHistoryRst->fetch_all(MYSQLI_ASSOC);
-        // echo "<pre>";
-        // print_r($result);
-        // echo "herel";
         return $result;
 
     }
@@ -196,8 +187,6 @@ class BookModel
         $bookDetailStmt->execute();
         $result = $bookDetailStmt->get_result();
         $bookDetail = $result->fetch_assoc();
-        // echo "<pre>";
-        // print_r($bookDetail);
         return $bookDetail;
 
     }

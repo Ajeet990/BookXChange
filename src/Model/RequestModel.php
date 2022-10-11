@@ -54,7 +54,7 @@ class RequestModel
         $allRequestStmt = $this->conn->prepare(
             "SELECT borrower.user_name as Requester, r.requester_id,
             b.book_name as Book, r.book_id, owner.user_name as Book_Owner,
-            r.owner_id, r.status, r.rqst_copies, r.rqst_date, r.issued_date,
+            r.owner_id, r.status, r.rqst_date, r.issued_date,
             r.return_date
             FROM request as r 
             INNER JOIN register as borrower ON r.requester_id = borrower.id

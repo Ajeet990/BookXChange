@@ -11,7 +11,6 @@
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Rating</th>
-                    <th scope="col">Quantity</th>
                     <th scope="col">Image</th>
                     <th scope="col">Actions</th> 
                 </tr>
@@ -29,7 +28,6 @@
                     <td>{{ data.description }}</td>
                     <td>{{ data.status }}</td>
                     <td>{{ data.rating }}</td>
-                    <td>{{ data.quantity }}</td>
                     <td><img src="{{ data.image }}" alt="Image of book"></td>
                     <td>
                         <a class="btn btn-primary mx-1 btn-sm" href="javascript:void(0)" onclick="deleteBook('{{ data.id }}')">Deletee</a>
