@@ -3,7 +3,7 @@
  * Header file that is included in most of the pages.
  * it includes the calling of the models and the constructors. 
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange
@@ -180,6 +180,18 @@ $bookManager = $permission->getAccessBook();
                     <li class="nav-item">
                         <a id="perm" href="<?php $base_url ?>/bookxchange/src/settings/permission.php"
                             class="nav-link">Permissions</a>
+                    </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']== 'superadmin') { ?>
+                    <li class="nav-item">
+                        <a id="lang" href="<?php $base_url ?>/bookxchange/src/view/language.php"
+                            class="nav-link">Languages</a>
+                    </li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']== 'superadmin') { ?>
+                    <li class="nav-item">
+                        <a id="genre" href="<?php $base_url ?>/bookxchange/src/view/genre.php"
+                            class="nav-link">Genre</a>
                     </li>
                     <?php } ?>
 

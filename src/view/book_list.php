@@ -2,7 +2,7 @@
 /**
  * Book list page, this page is called to show all the list of the book.
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange

@@ -2,7 +2,7 @@
 /**
  * Bookmodal that queries all the queries related to the setting.
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange
@@ -175,6 +175,49 @@ class SettingModel
         $logo_name = $getLogoRst->fetch_array(MYSQLI_ASSOC);
         return $logo_name;
 
+    }
+
+
+    /**
+     * Function to get the all the languages
+     * 
+     * @return returns the list of languages.
+     */
+    public function langModel()
+    {
+        $getLangStmt = $this->conn->prepare("select * from language order by name");
+        $getLangStmt->execute();
+        $getLangRst = $getLangStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $getLangRst;
+    }
+
+    public function addLangModel(string $language)
+    {
+        $addLangStmt = $this->conn->prepare("insert into language(name) values(?)");
+        $addLangStmt->bind_param("s", $language);
+        $addLangStmt->execute();
+        return true;
+    }
+
+    /**
+     * Function to get the all the genres
+     * 
+     * @return returns the list of genre.
+     */
+    public function genreModel()
+    {
+        $getGenreStmt = $this->conn->prepare("select * from genre order by genre");
+        $getGenreStmt->execute();
+        $getGenreRst = $getGenreStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $getGenreRst;
+    }
+
+    public function addgenreModel(string $genre)
+    {
+        $addGenreStmt = $this->conn->prepare("insert into genre(genre) values(?)");
+        $addGenreStmt->bind_param("s", $genre);
+        $addGenreStmt->execute();
+        return true;
     }
 
 }

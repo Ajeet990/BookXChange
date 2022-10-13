@@ -1,6 +1,6 @@
 <?php
 /**
- * This page is called when the user successfully gets logged in.
+ * Language page, that handle the addition, updation and delettion of laguages.
  *
  * PHP version 7.4.30
  *
@@ -18,23 +18,12 @@
 require '../../vendor/autoload.php';
 require '../config/db.php';
 require '../include/header.php';
-if (isset($_SESSION['admin']) && $_SESSION['admin'] == "true") {
+if (isset($_GET['added']) && $_GET['added'] == 'true') {
     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Welcome </strong> You are logged in.
+    <strong>Language </strong> added successfully.
     <button type="button" class="btn-close" data-bs-dismiss="alert"
-    aria-label="Close"></button>
-  </div>';
-    unset($_SESSION['admin']);
+	aria-label="Close"></button>
+      </div>';  
+      unset($_SESSION['wrong']);
 }
-if (isset($_SESSION['success'])) {
-    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success </strong>'.$_SESSION['success'].'.
-    <button type="button" class="btn-close" data-bs-dismiss="alert"
-    aria-label="Close"></button>
-  </div>';
-    unset($_SESSION['success']);
-}
-
-echo $user->getAllData();
-
-?>
+echo $setting->language();

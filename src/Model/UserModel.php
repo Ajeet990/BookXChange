@@ -2,7 +2,7 @@
 /**
  * Bookcontroller that controls all the book functionality
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange

@@ -2,7 +2,7 @@
 /**
  * Usercontroller that controls all the User related functionality
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   Book_Apllication
  * @package    Bookxchange

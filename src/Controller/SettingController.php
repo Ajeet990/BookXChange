@@ -2,7 +2,7 @@
 /**
  * Bookcontroller that controls all the book functionality
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange
@@ -165,6 +165,51 @@ class SettingController
         $logo_name = substr($logo_name, 7);
         return $logo_name;
 
+    }
+    /**
+     * Function to display the language
+     * 
+     * @return the logo image from the database
+     */
+    public function language() : string
+    {
+        $allLanguages = $this->setting_m->langModel();
+        return $this->twig->render(
+            'language.html.twig', ["languages" => $allLanguages]
+        );
+    }
+
+    public function addLang(string $language)
+    {
+        $addLangRst = $this->setting_m->addLangModel($language);
+        // $allLanguages = $this->setting_m->langModel();
+        // return $this->twig->render(
+        //     'language.html.twig', ["languages" => $allLanguages]
+        // );
+        header('location:language.php?added=true');
+    }
+
+    /**
+     * Function to display the language
+     * 
+     * @return the logo image from the database
+     */
+    public function genre() : string
+    {
+        $allGenre = $this->setting_m->genreModel();
+        return $this->twig->render(
+            'genre.html.twig', ["genres" => $allGenre]
+        );
+    }
+
+    public function addGenre(string $genre)
+    {
+        $addGenreRst = $this->setting_m->addgenreModel($genre);
+        // $allLanguages = $this->setting_m->langModel();
+        // return $this->twig->render(
+        //     'language.html.twig', ["languages" => $allLanguages]
+        // );
+        header('location:genre.php?added=true');
     }
 
 }

@@ -3,7 +3,7 @@
  * After clicking on any actions like delete, edit or block contorller
  * comes here and choose action according the requirement.
  *
- * PHP version 8.1.3
+ * PHP version 7.4.30
  *
  * @category   CategoryName
  * @package    Bookxchange
@@ -22,12 +22,15 @@ require '../config/db.php';
 
 use Book\Bookxchange\Model\BookModel;
 use Book\Bookxchange\Model\UserModel;
+use Book\Bookxchange\Model\SettingModel;
 
 $user_m = new UserModel($conn);
 $book_m = new BookModel($conn);
+$setting_m = new SettingModel($conn);
 
 $user = new \Book\Bookxchange\Controller\UserController($user_m);
 $book = new \Book\Bookxchange\Controller\BookController($book_m);
+$setting = new \Book\Bookxchange\Controller\SettingController($setting_m);
 
 
 if (isset($_POST['update_user'])) {
@@ -47,8 +50,16 @@ if (isset($_POST['login'])) {
     $user->login($uname, $upass);
 }
 
+if (isset($_POST['addLang'])) {
+    $language = $_POST['lang'];
+    echo $setting->addLang($language);
+}
+if (isset($_POST['addGenre'])) {
+    $genre = $_POST['genre'];
+    echo $setting->addGenre($genre);
+}
+
 if (isset($_GET['id']) && isset($_GET['action'])) {
-    // if (isset($_GET['id']) && $_GET['id'] != '') {
 
     $id = intval($_GET['id']);
     $action = $_GET['action'];
@@ -60,21 +71,11 @@ if (isset($_GET['id']) && isset($_GET['action'])) {
     } elseif ($action == "unBlockUser") {
         $user->unBlockUser($id);
     } elseif ($action == "block_book") {
-        $book->blockBook($id);
-        // echo "blocking books ".$id;
-        
-        
+        $book->blockBook($id);       
     } elseif ($action == "unblockBook") {
         $book->unBlockBook($id);
     } elseif ($action == "delete_book") {
-        // $jsonresponse = [
-        //     "html_delete" => "ddfbdf",
-        // ];
-
-        // echo json_encode($jsonresponse);
-        // die();
         $book->deleteBook($id);
-        // echo "Deleting book id ".$id;
     }
 
 }
